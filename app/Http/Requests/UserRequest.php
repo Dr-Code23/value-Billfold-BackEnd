@@ -28,6 +28,7 @@ class UserRequest extends FormRequest
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8',
             'Re-password' => 'required|min:8|same:password',
+            'device_token' => 'required'
         ];
     }
 }

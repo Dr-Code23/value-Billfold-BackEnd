@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\AuthController;
+use App\Models\Invoice;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +17,11 @@ use App\Http\Controllers\api\AuthController;
 */
 
 Route::get('/', function () {
-    // return view('welcome');
-return 'welcome';
+    return redirect('Admin/Dashboard');
 });
 
 Route::controller(AuthController::class)->prefix('auth')->group(function (){
     Route::get("ResetPassword/{token}","reset_password")->name("ResetPassword"); // show form to write password and confirmpassword
     Route::post("ConfirmPassword","confirm_password")->name("ConfirmPassword"); // update password
 });
+

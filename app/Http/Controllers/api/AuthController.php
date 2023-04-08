@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\File;
 use Exception;
 use Carbon\Carbon;
 use URL;
@@ -18,6 +19,7 @@ use Illuminate\Support\Str;
 use App\Mail\PasswordResetSend;
 use App\Models\PasswordResets;
 use Hash;
+use App\Events\ApprovedNotify;
 use Otp;
 use Illuminate\Validation\Rule;
 use App\Notifications\EmailVerificationNotification;
@@ -30,14 +32,16 @@ class AuthController extends Controller
     {
         $this->otp = new Otp;
     }
-    public function register(UserRequest $request){
+    public function register(Request $request){
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password,
+            'device_token' => $request->device_token,
         ]);
+        event(new ApprovedNotify($user));
         $user->notify(new EmailVerificationNotification());
-        return Response::json(['status'=>true,'message'=> 'successfully Register'],200);
+        return Response::json(['status'=>true,'message'=> 'successfully Register , waiting to Accepting'],200);
     }
 
     public function login(Request $request){
@@ -144,16 +148,48 @@ class AuthController extends Controller
         $userID = $user->id;
          $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
-            'email' => ['required', Rule::unique('users')->ignore($userID)]
+            'email' => ['required', Rule::unique('users')->ignore($userID)],
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         if($validator->fails()){
             return Response::json(['status'=>false,'message'=> $validator->errors()],400);
         }
-        User::whereId($userID)->update([
-            'name' => $request->name,
-            'email' =>$request->email
-        ]);
-        return Response::json(['status'=>200,'message'=>'profile changed Successfully'],200);
+        if($user->avatar == "default.jpg"){
+            $filename = '';
+            $filename = uploadImage("avatar",$request->avatar);
+            User::whereId($userID)->update([
+                'name' => $request->name,
+                'email' =>$request->email,
+                'avatar' => $filename
+            ]);
+            return Response::json(['status'=>200,'message'=>'profile changed Successfully'],200);
+        }else{
+
+            $fileInfo = pathinfo($user->avatar);
+
+            if(isset($request->avatar)){
+                $file_path = public_path("\\img\\avatar\\" . $fileInfo['basename']);
+                if(File::exists($file_path)) {
+                    unlink($file_path);
+                }
+            $filename = '';
+            $filename = uploadImage("avatar",$request->avatar);
+            $request->avatar = $filename;
+            User::whereId($userID)->update([
+                'name' => $request->name,
+                'email' =>$request->email,
+                'avatar' => $filename
+            ]);
+            return Response::json(['status'=>200,'message'=>'profile changed Successfully'],200);
+        }else{
+
+            User::whereId($userID)->update([
+                'name' => $request->name,
+                'email' =>$request->email
+            ]);
+            return Response::json(['status'=>200,'message'=>'profile changed Successfully'],200);
+            }
+        }
     }
 
     public function EmailVerification(EmailVerificationRequest $request){

@@ -8,6 +8,7 @@ use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
 use PDF;
 use Illuminate\Support\Facades\Response;
+use Carbon\Carbon;
 
 class InvoiceController extends Controller
 {
@@ -19,7 +20,9 @@ class InvoiceController extends Controller
             "bank_code" => $request->bank_code,
             'user_id' => auth('api')->user()->id
         ]);
-        return Response::json(['status'=>true,'message'=> 'invoice created successfully'],200);
+        // return Response::json(['status'=>true,'message'=> 'invoice created successfully'],200);
+        $pdf = PDF::loadView('users.invoices.index',compact('invoice'))->setOptions(['defaultFont' => 'sans-serif']);;
+        return $pdf->download('invoice.pdf');
     }
     public function paid(){
         $invoice_paid = Invoice::where("status_value" , '1')->where('user_id',auth('api')->user()->id)->get();
@@ -46,4 +49,14 @@ class InvoiceController extends Controller
             return Response::json(['status'=>false,'message'=> 'sorry ,no invoice yet'],404);
         }
     }
+
+    public function details(Request $request){
+        $invoice = Invoice::where("id" , $request->invoice_id)->get();
+        if($invoice->count() > 0 ){
+            return Response::json(['status'=>true,'message'=>$invoice ],200);
+        }else{
+            return Response::json(['status'=>false,'message'=> 'sorry ,no invoice yet'],404);
+        }
+    }
+
 }

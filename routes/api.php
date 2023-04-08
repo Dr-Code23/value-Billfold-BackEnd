@@ -31,11 +31,12 @@ Route::group(['controller' =>AuthController::class , 'prefix'=> 'Auth'],function
     Route::post('email-verify-send','EmailVerificationSend')->middleware(['api.auth','user.status']);
 });
 
-Route::group(['controller' =>InvoiceController::class , 'prefix'=> 'invoice' , 'middleware' => ['api.auth','user.status']],function(){
+Route::group(['controller' =>InvoiceController::class , 'prefix'=> 'invoice','middleware' => ['api.auth','user.status'] ],function(){
     Route::post('create','create');
     Route::get('due','due');
     Route::get('paid','paid');
     Route::get('pdf','pdf');
+    Route::post('details','details');
 });
 
 Route::group(['controller' =>OutLookController::class , 'prefix'=> 'OutLook' , 'middleware' => ['api.auth','user.status']],function(){
