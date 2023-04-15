@@ -29,7 +29,6 @@ class AdminsRepository implements AdminsRepositoryInterface{
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
-            'role_id' => $data['role_id'],
             'image' => $filename
         ]);
     }
@@ -54,7 +53,6 @@ public function updateAdmins($data,$id){
 }else{
     $admin->name = $data['name'];
     $admin->email= $data['email'];
-    $admin->role_id = $data['role_id'];
     $admin->save();
     }
 

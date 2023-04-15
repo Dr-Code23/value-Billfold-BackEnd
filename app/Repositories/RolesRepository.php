@@ -3,8 +3,9 @@
 
 namespace App\Repositories;
 use App\Repositories\Interfaces\RolesRepositoryInterface;
-use App\Models\Role;
 use DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class RolesRepository implements RolesRepositoryInterface{
 
@@ -13,29 +14,41 @@ class RolesRepository implements RolesRepositoryInterface{
         return  auth('admin')->user();
     }
     public function allRoles(){
-        return Role::all();
+        return Role::orderBy('id','DESC')->get();
     }
 
     public function createRoles(){
-        return  auth('admin')->user();
+       return Permission::get();
     }
 
     public function storeRoles($data){
-        return Role::create([
-            'name' => $data['name'],
-            'permissions' => json_encode($data['permissions'])
-        ]);
+        // return Role::create([
+        //     'name' => $data['name'],
+        //     'permissions' => json_encode($data['permissions'])
+        // ]);
+
+        $role = Role::create(['name' => $data['name']]);
+        $role->syncPermissions($data['permission']);
     }
 
     public function editRoles($id){
-        return Role::find($id);
+        $role = Role::find($id);
+        $permission = Permission::get();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
+            ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
+            ->all();
+        return ['role' => $role , 'permission' => $permission , 'rolePermissions' => $rolePermissions];
     }
 
     public function updateRoles($data,$id){
+        // $role = Role::find($id);
+        // $role->name = $data['name'];
+        // $role->permissions = json_encode($data['permissions']);
+        // $role->save();
         $role = Role::find($id);
         $role->name = $data['name'];
-        $role->permissions = json_encode($data['permissions']);
         $role->save();
+        $role->syncPermissions($data['permission']);
     }
 
     public function deleteRoles($id){

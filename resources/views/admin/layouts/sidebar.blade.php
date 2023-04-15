@@ -62,7 +62,7 @@
                     <span class="sa-nav__menu-item-padding"></span>
                     <span class="sa-nav__title">{{__('message.users')}}</span>
                     </a>
-                    {{-- @can('admins2') --}}
+                    {{-- @can('Roles') --}}
                 </li>
                 <li class="sa-nav__menu-item">
                     <a href="{{url('Admin/Notify')}}" class="sa-nav__link"

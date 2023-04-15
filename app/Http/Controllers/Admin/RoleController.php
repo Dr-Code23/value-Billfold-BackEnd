@@ -24,8 +24,10 @@ class RoleController extends Controller
         return view("admin.Roles.index",compact('Roles','admin','notifications'));
     }
     public function create(){
-        $admin = $this->RoleRepository->createRoles();
-        return view('admin.Roles.create',compact('admin'));
+        $permissions = $this->RoleRepository->createRoles();
+        $admin = auth('admin')->user();
+        $notifications = $this->RoleRepository->getnotifcation(); //all of notification
+        return view('admin.Roles.create',compact('admin','notifications'));
     }
     public function store(RolesRequest $data){
         $this->RoleRepository->storeRoles($data->all());
@@ -35,8 +37,11 @@ class RoleController extends Controller
     public function edit($id){
         $admin = $this->RoleRepository->getadmin();
         $notifications = $this->RoleRepository->getnotifcation(); //all of notification
-        $Role = $this->RoleRepository->editRoles($id);
-        return view('admin.Roles.edit',compact('admin','Role','notifications'));
+        $Roles = $this->RoleRepository->editRoles($id);
+        $Role = $Roles['role'];
+        $permission = $permission['role'];
+        $rolePermissions = $rolePermissions['role'];
+        return view('admin.Roles.edit',compact('admin','Role','notifications','permission','rolePermissions'));
     }
 
     public function update(RolesRequest $data , $id){

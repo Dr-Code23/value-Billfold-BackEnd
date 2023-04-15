@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Repositories\Interfaces\AdminsRepositoryInterface;
 use App\Http\Requests\AdminRequest;
 use App\Models\Notification;
+use DB;
 
 
 class AdminController extends Controller
@@ -27,7 +28,8 @@ class AdminController extends Controller
     public function create(){
         $Roles = $this->AdminsRepository->createAdmins();
         $admin = $this->AdminsRepository->getadmin(); //auth of admin
-        return view('admin.admins.create',compact('Roles','admin'));
+        $notifications = $this->AdminsRepository->getnotifcation(); //all of notification
+        return view('admin.admins.create',compact('Roles','admin','notifications'));
     }
 
     public function store(AdminRequest $data){
@@ -81,9 +83,10 @@ class AdminController extends Controller
     }
 
     public function allNotification(){
-        $notifications = Notification::all();
+        $notifications = $this->AdminsRepository->getnotifcation(); //all of notification
         $admin = $this->AdminsRepository->getadmin(); //auth of admin
-        return view("admin.Notification.notification_list",compact('notifications','admin'));
+        $AllNotification = DB::table('notifications')->orderBy('id', 'DESC')->get();
+        return view("admin.Notification.notification_list",compact('notifications','admin','AllNotification'));
     }
 
 }

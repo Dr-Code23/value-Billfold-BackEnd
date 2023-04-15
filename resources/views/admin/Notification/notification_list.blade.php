@@ -45,7 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($notifications as $notification)
+                        @foreach ($AllNotification as $notification)
 
                         <tr>
                             <td>
