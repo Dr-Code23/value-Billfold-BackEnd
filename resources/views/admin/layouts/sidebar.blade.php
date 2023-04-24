@@ -57,20 +57,24 @@
                   class="sa-nav__menu sa-nav__menu--sub"
                   data-sa-collapse-content=""
                 >
-                  <li class="sa-nav__menu-item">
+                    @if(auth('admin')->user()->can('user-list'))
+
+                    <li class="sa-nav__menu-item">
                     <a href="{{url('Admin/users')}}" class="sa-nav__link">
                     <span class="sa-nav__menu-item-padding"></span>
                     <span class="sa-nav__title">{{__('message.users')}}</span>
                     </a>
-                    {{-- @can('Roles') --}}
                 </li>
-                <li class="sa-nav__menu-item">
+                    @endif
+                    @if(auth('admin')->user()->can('AllNotification'))
+                    <li class="sa-nav__menu-item">
                     <a href="{{url('Admin/Notify')}}" class="sa-nav__link"
                     ><span class="sa-nav__menu-item-padding"></span
                         ><span class="sa-nav__title">{{__('message.AllNotification')}}</span></a
                         >
                     </li>
-                    {{-- @endcan --}}
+                    @endif
+
                   {{-- <li class="sa-nav__menu-item">
                     <a href="" class="sa-nav__link"
                       ><span class="sa-nav__menu-item-padding"></span
@@ -286,11 +290,13 @@
                        d="M5.605,0.213 C6.007,0.613 6.107,1.212 5.706,1.612 L2.696,4.511 L5.706,7.409 C6.107,7.809 6.107,8.509 5.605,8.808 C5.204,9.108 4.702,9.108 4.301,8.709 L-0.013,4.511 L4.401,0.313 C4.702,-0.087 5.304,-0.087 5.605,0.213 Z"></path></svg></span
                         ></a>
                     <ul class="sa-nav__menu sa-nav__menu--sub" data-sa-collapse-content="">
+                        @if(auth('admin')->user()->can('user-list'))
                         <li class="sa-nav__menu-item">
                             <a href="{{url('Admin/users')}}" class="sa-nav__link"><span class="sa-nav__menu-item-padding"></span>
                                 <span class="sa-nav__title">{{__('message.user_List')}}</span>
                             </a>
                         </li>
+                        @endif
                     </ul>
                 </li>
                 {{-- /// end of section --}}
@@ -318,19 +324,23 @@
                       d="M5.605,0.213 C6.007,0.613 6.107,1.212 5.706,1.612 L2.696,4.511 L5.706,7.409 C6.107,7.809 6.107,8.509 5.605,8.808 C5.204,9.108 4.702,9.108 4.301,8.709 L-0.013,4.511 L4.401,0.313 C4.702,-0.087 5.304,-0.087 5.605,0.213 Z"></path></svg></span
               ></a>
               <ul class="sa-nav__menu sa-nav__menu--sub" data-sa-collapse-content="">
-{{--                @can('role-list')--}}
-                <li class="sa-nav__menu-item">
+{{--                  @if(auth('admin')->user()->hasRole('admin'))--}}
+                      @if(auth('admin')->user()->can('role-list'))
+                      <li class="sa-nav__menu-item">
                     <a href="{{url('Admin/Role')}}" class="sa-nav__link"><span class="sa-nav__menu-item-padding"></span>
                         <span class="sa-nav__title">{{__('message.Roles_list')}}</span>
                     </a>
                 </li>
-{{--                  @endcan--}}
-                <li class="sa-nav__menu-item">
+
+                  @endif
+                  @if(auth('admin')->user()->can('role-create'))
+                  <li class="sa-nav__menu-item">
                   <a href="{{url('Admin/Role/create')}}" class="sa-nav__link">
                     <span class="sa-nav__menu-item-padding"></span>
                     <span class="sa-nav__title">{{__('message.Roles_create')}}</span>
                 </a>
                 </li>
+                  @endcan
               </ul>
             </li>
             {{-- /// end of section --}}
@@ -358,17 +368,22 @@
                      d="M5.605,0.213 C6.007,0.613 6.107,1.212 5.706,1.612 L2.696,4.511 L5.706,7.409 C6.107,7.809 6.107,8.509 5.605,8.808 C5.204,9.108 4.702,9.108 4.301,8.709 L-0.013,4.511 L4.401,0.313 C4.702,-0.087 5.304,-0.087 5.605,0.213 Z"></path></svg></span
              ></a>
              <ul class="sa-nav__menu sa-nav__menu--sub" data-sa-collapse-content="">
-               <li class="sa-nav__menu-item">
+                 @if(auth('admin')->user()->can('admin-list'))
+
+                 <li class="sa-nav__menu-item">
                  <a href="{{url('Admin')}}" class="sa-nav__link"><span class="sa-nav__menu-item-padding"></span>
                      <span class="sa-nav__title">{{__('message.Admins_list')}}</span>
                  </a>
                </li>
-               <li class="sa-nav__menu-item">
-                 <a href="{{url('Admin/create')}}" class="sa-nav__link">
+                 @endif
+                     @if(auth('admin')->user()->can('admin-create'))
+                     <li class="sa-nav__menu-item">
+                   <a href="{{url('Admin/create')}}" class="sa-nav__link">
                    <span class="sa-nav__menu-item-padding"></span>
                    <span class="sa-nav__title">{{__('message.Admins_create')}}</span>
                </a>
                </li>
+                     @endif
              </ul>
            </li>
            {{-- /// end of section --}}

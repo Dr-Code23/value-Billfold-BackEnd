@@ -89,15 +89,27 @@
                                         aria-labelledby="customer-context-menu-0">
                                         {{-- <li><a class="dropdown-item" href="#">{{__('message.edit')}}</a></li> --}}
                                         @if ($user->is_active == 1)
-                                        <li><a class="dropdown-item" href="{{route('Update_status',['user_id' => $user->id,'status_code' =>0 ])}}">{{__('message.Block')}}</a></li>
+                                            @if(auth('admin')->user()->can('user-edit'))
+                                            <li>
+                                            <a class="dropdown-item" href="{{route('Update_status',['user_id' => $user->id,'status_code' =>0 ])}}">{{__('message.Block')}}</a>
+                                        </li>
+                                            @endif
                                         @else
-                                        <li><a class="dropdown-item" href="{{route('Update_status',['user_id' => $user->id,'status_code' =>1 ])}}">{{__('message.Approved')}}</a></li>
+                                            @if(auth('admin')->user()->can('user-edit'))
+
+                                            <li>
+                                            <a class="dropdown-item" href="{{route('Update_status',['user_id' => $user->id,'status_code' =>1 ])}}">{{__('message.Approved')}}</a>
+                                        </li>
+                                            @endif
                                         @endif
                                         <li>
                                             <hr class="dropdown-divider" />
                                         </li>
-                                        <li><a class="dropdown-item text-danger" href="{{url('Admin/users/delete',['user_id' => $user->id])}}">{{__('message.delete')}}</a>
+                                        @if(auth('admin')->user()->can('user-delete'))
+                                        <li>
+                                            <a class="dropdown-item text-danger" href="{{url('Admin/users/delete',['user_id' => $user->id])}}">{{__('message.delete')}}</a>
                                         </li>
+                                        @endif
                                     </ul>
                                 </div>
                             </td>

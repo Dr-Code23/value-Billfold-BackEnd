@@ -205,7 +205,9 @@
                       </li>                @endif
               </ul>
             <div class="sa-notifications__footer">
-              <a class="sa-notifications__footer-action" href="{{url('Admin/Notify')}}">See all other notifications</a>
+                @if(auth('admin')->user()->can('AllNotification'))
+                <a class="sa-notifications__footer-action" href="{{url('Admin/Notify')}}">See all other notifications</a>
+                @endif
             </div>
           </div>
         </div>
@@ -460,7 +462,9 @@
           class="dropdown-menu w-100"
           aria-labelledby="dropdownMenuButton"
         >
-          <li><a class="dropdown-item" href="{{url('Admin/profile')}}">{{__('message.profile')}}</a></li>
+            @if(auth('admin')->user()->can('showProfile'))
+            <li><a class="dropdown-item" href="{{url('Admin/profile')}}">{{__('message.profile')}}</a></li>
+            @endif
           <li><hr class="dropdown-divider" /></li>
           <li>
             <a class="dropdown-item" href="{{url('Admin/logout')}}">{{__('message.logout')}}</a>

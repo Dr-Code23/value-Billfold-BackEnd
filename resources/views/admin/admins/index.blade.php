@@ -46,12 +46,16 @@
                                     <form method="post" action="{{url('Admin/delete',$Admin->id)}}">
                                         @csrf
                                         @method("delete")
-                                    <button type="submit" class="btn btn-link border-0" style="background: none" title="delete" onclick='return confirm("{{__('message.Are you sure?')}}")'>
+                                        @if(auth('admin')->user()->can('admin-delete'))
+                                        <button type="submit" class="btn btn-link border-0" style="background: none" title="delete" onclick='return confirm("{{__('message.Are you sure?')}}")'>
                                         <i class="bi bi-trash" style="color:blue"></i>
                                     </button>
-                                    <a class="" href="{{url('Admin/edit',$Admin->id)}}" title="edit">
+                                        @endif
+                                        @if(auth('admin')->user()->can('admin-edit'))
+                                        <a class="" href="{{url('Admin/edit',$Admin->id)}}" title="edit">
                                         <i class="bi bi-pen"></i>
                                     </a>
+                                        @endif
                                 </form>
 
                                 </td>
