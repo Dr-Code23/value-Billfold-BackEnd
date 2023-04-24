@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\EmailVerificationRequest;
@@ -203,21 +204,56 @@ class AuthController extends Controller
         ]);
         return Response::json(['status'=>200,'message'=>'Email Verified Successfully'],200);
     }
-    public function EmailVerificationSend(){
-        $user = auth('api')->user();
-        if($user->email_verified_at != NULL){
-            return Response::json(['status'=>false,'message'=> 'sorry your email is verified alreday'],400);
-        }else{
-            $identifier = DB::table('otps')->where('identifier',$user->email)->count();
-            // return $identifier;
-            if( $identifier > 0){
-                $myid = DB::table('otps')->where('identifier',$user->email)->delete();
-                $user->notify(new EmailVerificationNotification());
-                return Response::json(['status'=>200,'message'=>'check your email to verify'],200);
+    public function EmailVerificationSend(Request $request){
+        $user = User::where('email',$request->email)->first();
+        if(isset($user)){
+            if($user->email_verified_at != NULL){
+                return Response::json(['status'=>false,'message'=> 'sorry your email is verified alreday'],400);
             }else{
-                $user->notify(new EmailVerificationNotification());
-                return Response::json(['status'=>200,'message'=>'check your email to verify'],200);
+                $identifier = DB::table('otps')->where('identifier',$user->email)->count();
+                // return $identifier;
+                if( $identifier > 0){
+                    $myid = DB::table('otps')->where('identifier',$user->email)->delete();
+                    $user->notify(new EmailVerificationNotification());
+                    return Response::json(['status'=>200,'message'=>'check your email to verify'],200);
+                }else{
+                    $user->notify(new EmailVerificationNotification());
+                    return Response::json(['status'=>200,'message'=>'check your email to verify'],200);
+                }
+            }
+        }else{
+            return Response::json(['status'=>false,'message'=> 'sorry your email is not  match for user'],400);
+        }
+    }
+    public function showProfile(){
+        $user = auth('api')->user();
+        if(isset($user)){
+            return Response::json(['status'=>200,'message'=>$user],200);
+        }else{
+            return Response::json(['status'=>false,'message'=> 'sorry your user is not  exit'],400);
+        }
+    }
+
+    public function home(){
+        $user = auth('api')->user();
+        $invoice_paid = Invoice::where("status_value" , '1')->where('user_id',$user->id)->count();
+        $invoice_due = Invoice::where("status_value" , '0')->where('user_id',$user->id)->orderBy('id', 'DESC')->take(3)->get();
+        $invoice_dueCount = Invoice::where("status_value" , '0')->where('user_id',$user->id)->count();
+            $paidTotal= 0.0;
+        $invoice_paidTotal = Invoice::where("status_value" , '1')->where('user_id',$user->id)->get();
+        if(isset($invoice_paidTotal)){
+            foreach ($invoice_paidTotal as $item){
+                $paidTotal = $paidTotal + $item->amount;
             }
         }
+        $dueTotal=0.0;
+        $invoice_dueTotal = Invoice::where("status_value" , '0')->where('user_id',$user->id)->get();
+        if (isset($invoice_dueTotal)){
+            foreach ($invoice_dueTotal as $item){
+                $dueTotal = $dueTotal + $item->amount;
+            }
+        }
+        return Response::json(['status'=>200,'invoice_paidCount'=>$invoice_paid,'invoice_due' => $invoice_due,'invoice_dueCount' => $invoice_dueCount,'paidTotal' => $paidTotal,'dueTotal'=>$dueTotal],200);
+
     }
 }

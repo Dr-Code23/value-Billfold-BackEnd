@@ -13,9 +13,12 @@ class Admin extends Authenticatable
     use  HasFactory, HasRoles;
 
     protected $table = 'admins';
-    protected $guard_name = 'admin';
+    protected $guard = 'admin';
 
     protected $fillable = ['name','email','password','image','roles_name'];
 
-
+    public function setPasswordAttribute($value)
+    {
+      $this->attributes['password'] = bcrypt($value);
+    }
 }

@@ -34,7 +34,6 @@ class AdminController extends Controller
 
     public function store(AdminRequest $data){
         $this->AdminsRepository->storeAdmins($data->all());
-
         return redirect(url('Admin'))->withsuccess("the Admin is add successfully");
     }
 
@@ -65,7 +64,7 @@ class AdminController extends Controller
     }
 
     public function changeLange($lang){
-        if(in_array($lang,['ar','en'])){
+        if(in_array($lang,['ar','en','se'])){
             session()->put('lang',$lang);
         }else{
             session()->put('lang','en');

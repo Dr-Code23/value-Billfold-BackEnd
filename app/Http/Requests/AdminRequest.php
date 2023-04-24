@@ -28,7 +28,7 @@ class AdminRequest extends FormRequest
             "email" => "required|email",
             "password" => "required|min:8",
             'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'role_id' => 'required|exists:roles,id'
+            'roles_name' => 'required'
         ];
     }
 }

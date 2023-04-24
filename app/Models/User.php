@@ -23,12 +23,17 @@ class User extends Authenticatable implements JWTSubject
         'name',
         'email',
         'password',
+        'email_verified_at',
     ];
 
 
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = bcrypt($value);
+    }
+
+    public  function invoices(){
+        return $this->hasMany(Invoice::class,'user_id');
     }
 
     /**

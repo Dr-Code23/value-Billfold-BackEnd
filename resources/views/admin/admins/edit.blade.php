@@ -54,9 +54,9 @@
                 <div class="row">
                     <div class="col-md-6 mb-2 ">
                         <div class="form-group">
-                            <select name="role_id" class="form-select mb-1 @error('country') is-invalid @enderror" aria-label="Default select example">
+                            <select name="roles_name" class="form-select mb-1 @error('country') is-invalid @enderror" aria-label="Default select example">
                                 @foreach ($Roles as $role)
-                                <option {{old('role_id',$admins->role_id)==$role->id?'selected':''}} value="{{$role->id}}">{{ $role->name }}</option>
+                                <option {{old('roles_name',$admins->roles_name)==$role->name?'selected':''}} value="{{$role->name}}">{{ $role->name }}</option>
                                 @endforeach
                             </select>
                             <label class="form-label" for="authority"> {{__('message.authority')}}</label>

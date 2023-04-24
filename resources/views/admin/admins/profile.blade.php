@@ -25,7 +25,7 @@
               <img src="{{$myinfo->image}}" alt="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3">{{$myinfo->name}}</h5>
-              <p class="text-muted mb-1">{{$myinfo->role->name}}</p>
+              <p class="text-muted mb-1">{{$myinfo->roles_name}}</p>
               <div class="d-flex justify-content-center mb-2">
                   <input type="file" name="image" class="form-control">
               </div>
@@ -76,7 +76,7 @@
                   <p class="mb-0">{{__('message.authority')}}</p>
                 </div>
                 <div class="col-sm-9">
-                    <input type="text" disabled value="{{$myinfo->role->name}}" class="form-control @error('role_id') is-invalid @enderror" name="age">
+                    <input type="text" disabled value="{{$myinfo->roles_name}}" class="form-control @error('role_id') is-invalid @enderror" name="age">
                     @error('role_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

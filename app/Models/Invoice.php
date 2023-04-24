@@ -14,4 +14,9 @@ class Invoice extends Model
     public function user(){
         return $this->belongsto(User::class,'user_id');
     }
+
+    public function getDueDateAttribute($value)
+    {
+        return date('d F Y', strtotime($value));
+    }
 }

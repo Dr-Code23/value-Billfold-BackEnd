@@ -45,8 +45,13 @@ class UserController extends Controller
     }
 
     public function delete($user_id){
-        $user = User::whereId($user_id)->delete();
+        $user = User::whereId($user_id)->first();
         if($user){
+            $invoices = $user->invoices;
+            foreach ($invoices as $invoice){
+                $invoice->delete();
+            }
+            $user->delete();
             return redirect(url('Admin/users'))->withsuccess('User is deleted successfully');
         }
         return redirect(url('Admin/users'))->witherror('sorry,there is an error');

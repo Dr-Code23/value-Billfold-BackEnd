@@ -27,7 +27,7 @@ class RolesRepository implements RolesRepositoryInterface{
         //     'permissions' => json_encode($data['permissions'])
         // ]);
 
-        $role = Role::create(['name' => $data['name']]);
+        $role = Role::create(['name' => $data['name'],'guard_name' => 'admin']);
         $role->syncPermissions($data['permission']);
     }
 
@@ -41,10 +41,6 @@ class RolesRepository implements RolesRepositoryInterface{
     }
 
     public function updateRoles($data,$id){
-        // $role = Role::find($id);
-        // $role->name = $data['name'];
-        // $role->permissions = json_encode($data['permissions']);
-        // $role->save();
         $role = Role::find($id);
         $role->name = $data['name'];
         $role->save();

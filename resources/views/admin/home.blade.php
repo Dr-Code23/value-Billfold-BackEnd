@@ -16,12 +16,12 @@
             data-sa-container-query='{"340":"saw-indicator--size--lg"}'
           >
             <div class="sa-widget-header saw-indicator__header">
-              <h2 class="sa-widget-header__title">Total Rooms</h2>
+              <h2 class="sa-widget-header__title">Total users</h2>
               <div class="sa-widget-header__actions">
               </div>
             </div>
             <div class="saw-indicator__body">
-              <div class="saw-indicator__value"></div>
+              <div class="saw-indicator__value">{{$user}}</div>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
               <div class="sa-widget-header__actions">
             </div>
         </div>
-        <div class="saw-pulse__counter">{{$user}}</div>
+        <div class="saw-pulse__counter">{{$activateUser}}</div>
           </div>
         </div>
 {{--        <div class="col-12 col-lg-8 col-xxl-9 d-flex">--}}

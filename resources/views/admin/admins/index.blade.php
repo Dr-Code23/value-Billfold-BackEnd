@@ -41,7 +41,7 @@
                                 <td>{{$Admin->name}}</td>
                                 <td>{{$Admin->email}}</td>
                                 <td><img src="{{$Admin->image}}" width="50px"></td>
-                                <td>{{$Admin->role->name}}</td>
+                                <td>{{$Admin->roles_name}}</td>
                                 <td>
                                     <form method="post" action="{{url('Admin/delete',$Admin->id)}}">
                                         @csrf

@@ -19,10 +19,10 @@
                         <nav class="mb-2" aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-sa-simple">
                                 <li class="breadcrumb-item"><a href="#">{{__('message.Dashboard')}}</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{__('message.users')}}</li>
+                                <li class="breadcrumb-item active" aria-current="page">{{__('message.Notification')}}</li>
                             </ol>
                         </nav>
-                        <h1 class="h3 m-0">{{__('message.users')}}</h1>
+                        <h1 class="h3 m-0">{{__('message.Notification')}}</h1>
                     </div>
 
                 </div>

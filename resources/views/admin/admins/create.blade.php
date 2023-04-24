@@ -66,13 +66,13 @@
                     <div class="col-md-6 mb-2 ">
                         <div class="form-group">
                             <label class="form-label" for="authority">{{__('message.authority')}}</label>
-                            <select name="role_id" class="form-select mb-1 @error('country') is-invalid @enderror" aria-label="Default select example">
+                            <select name="roles_name" class="form-select mb-1 @error('country') is-invalid @enderror" aria-label="Default select example">
                                 <option disabled selected>{{__('message.select_autority')}}</option>
                                 @foreach ($Roles as $role)
-                                <option value="{{$role->id}}">{{ $role->name }}</option>
+                                <option value="{{$role->name}}">{{ $role->name }}</option>
                                 @endforeach
                             </select>
-                            @error('role_id')
+                            @error('roles_name')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -71,6 +71,8 @@
           {{asset("assets/vendor/flag-icons/24/eg.png")}}
                 @elseif (app()->getLocale()=='en')
                 {{asset("assets/vendor/flag-icons/24/US.png")}}
+                 @elseif (app()->getLocale()=='se')
+                {{asset("assets/vendor/flag-icons/24/se.png")}}
           @endif
            class="sa-language-icon" alt=""/>
         </button>
@@ -94,6 +96,17 @@
               /><span class="ps-2">Arabic</span></a
             >
           </li>
+
+            <li>
+                <a
+                 class="dropdown-item d-flex align-items-center" href="{{url('Admin/Lang','se')}}"
+                ><img
+                        src={{asset("assets/vendor/flag-icons/24/se.png")}}
+                class="sa-language-icon me-3"
+                    alt=""
+                    /><span class="ps-2">Sweden</span></a
+                >
+            </li>
         </ul>
       </div>
       <div class="sa-toolbar__item dropdown dropdown-notifications">

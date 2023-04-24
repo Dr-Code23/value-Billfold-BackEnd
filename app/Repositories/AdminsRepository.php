@@ -4,7 +4,7 @@
 namespace App\Repositories;
 use App\Repositories\Interfaces\AdminsRepositoryInterface;
 use App\Models\Admin;
-use App\Models\Role;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\File;
 use DB;
 
@@ -29,8 +29,10 @@ class AdminsRepository implements AdminsRepositoryInterface{
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
-            'image' => $filename
+            'image' => $filename,
+            'roles_name' => $data['roles_name']
         ]);
+         $admins->assignRole($data['roles_name']);
     }
 
 public function editAdmins($id){
@@ -50,10 +52,15 @@ public function updateAdmins($data,$id){
     $filename = uploadImage("admins",$data['image']);
     $data['image'] = $filename;
     $admin->update($data);
+    DB::table('model_has_roles')->where('model_id',$id)->delete();
+     $admin->assignRole($data['roles_name']);
 }else{
     $admin->name = $data['name'];
     $admin->email= $data['email'];
+    $admin->roles_name = $data['roles_name'];
     $admin->save();
+    DB::table('model_has_roles')->where('model_id',$id)->delete();
+    $admin->assignRole($data['roles_name']);
     }
 
 }

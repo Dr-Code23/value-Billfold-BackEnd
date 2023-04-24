@@ -40,7 +40,7 @@
                                 <td>{{$Role->name}}</td>
                                 <td>
                                     @foreach ($Role->permissions as $permission )
-                                        {{$permission}},
+                                        {{$permission->name}},
                                     @endforeach
                                 </td>
                                 <td>

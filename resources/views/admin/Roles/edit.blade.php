@@ -27,9 +27,9 @@
                         <div class="m-portlet__body">
                             <div class="row">
                                <div class="form-group text-center">
-                                @foreach (config('global.permissions') as $name => $value )
+                                @foreach($permission as $value)
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" class="chk-box" name="permissions[]" value="{{$name}}" {{in_array($name,$Role->permissions) ? 'checked':''}}>{{$value}}
+                                    <input type="checkbox" class="chk-box" name="permission[]" value="{{$value->id}}" {{in_array($value->id,$rolePermissions) ? 'checked':''}}>{{$value->name}}
                                 </label>
                                 @endforeach
                                 </div>

@@ -21,7 +21,8 @@ class AuthController extends Controller
         $user = User::count();
         $admins = Admin::count();
         $invoices = Invoice::count();
-        return view("admin.home",compact('admin','notifications','user','admins','invoices'));
+        $activateUser = User::where('is_active','1')->count();
+        return view("admin.home",compact('admin','notifications','user','admins','invoices','activateUser'));
     }
 
     public function getlogin(){
