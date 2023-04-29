@@ -34,6 +34,24 @@ class AuthController extends Controller
         $this->otp = new Otp;
     }
     public function register(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:8|max:16',
+            'Re-password' => 'required|same:password'
+        ],[
+            'name.required' => 'the name of user is required',
+            'email.required' => 'the email of user is required',
+            'email.unique' => 'the email of user must be unique',
+            'password.required' =>'the password is required',
+            'password.max' => 'the length of password must max 16 ',
+            'password.min' => 'the length of password must min 8 ',
+            'Re-password.required' => "Re-password must required",
+            "Re-password.same" => "Re-password must be the same of password"
+        ]);
+        if($validator->fails()){
+            return Response::json(['status'=>false,'message'=> $validator->errors()],400);
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -60,7 +78,7 @@ class AuthController extends Controller
                 $user['token'] = [
                     'access_token' => $token,
                     'token_type' => 'bearer',
-                    'expires_in' => auth('api')->factory()->getTTL() * 60
+                    'expires_in' => auth('api')->factory()->getTTL() * 60*24*30
                 ];
                 return Response::json(['status'=>true,'data'=>$user],200);
             }else{

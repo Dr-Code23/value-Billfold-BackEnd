@@ -13,14 +13,19 @@
         <div id="m_table_1_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
             <div class="row">
                 <div class="col-sm-12">
-                    <table class="table table-striped- table-bordered table-hover">
-                        <thead>
-                            <tr role="row">
-                                <th width='10%'>
-                                    <label class="m-checkbox m-checkbox--single m-checkbox--solid m-checkbox--brand">
-                                        <input type="checkbox" value="" class="m-group-checkable">
-                                        <span></span>
-                                    </label>
+
+                    <div class="card">
+                        <div class="p-4">
+                            <input type="text" placeholder="Start typing to search for Users" class="typeahead form-control form-control--search mx-auto" id="table-search" /></div>
+                        <div class="sa-divider">
+
+                        </div>
+                        <table class="sa-datatables-init" data-order="[[ 1, &quot;asc&quot; ]]"
+                               data-sa-search-input="#table-search">
+                            <thead>
+                            <tr>
+                                <th class="w-min" data-orderable="false"><input type="checkbox"
+                                                                                class="form-check-input m-0 fs-exact-16 d-block" aria-label="..." />
                                 </th>
                                 <th>{{__('message.name')}}</th>
                                 <th>{{__('message.email')}}</th>
@@ -46,12 +51,12 @@
                                     <form method="post" action="{{url('Admin/delete',$Admin->id)}}">
                                         @csrf
                                         @method("delete")
-                                        @if(auth('admin')->user()->can('admin-delete'))
+                                        @if(auth('admin')->user()->can('Admin-Delete'))
                                         <button type="submit" class="btn btn-link border-0" style="background: none" title="delete" onclick='return confirm("{{__('message.Are you sure?')}}")'>
                                         <i class="bi bi-trash" style="color:blue"></i>
                                     </button>
                                         @endif
-                                        @if(auth('admin')->user()->can('admin-edit'))
+                                        @if(auth('admin')->user()->can('Admin-Edit'))
                                         <a class="" href="{{url('Admin/edit',$Admin->id)}}" title="edit">
                                         <i class="bi bi-pen"></i>
                                     </a>
@@ -65,6 +70,7 @@
                     </table>
 
                 </div>
+            </div>
             </div>
         </div>
     </div>

@@ -1,153 +1,263 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Invoice - #123</title>
-
+    <meta charset="utf-8">
+    <title>Invoice 1</title>
+    <link rel="stylesheet" href="style.css" media="all"/>
     <style>
-        .invoice-box {
-            max-width: 800px;
-            margin: auto;
-            padding: 30px;
-            border: 1px solid #eee;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-            font-size: 16px;
-            line-height: 24px;
-            font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-            color: #555;
+        @import 'https://fonts.googleapis.com/css2?family=Kanit:wght@400;500&display=swap';
+
+
+        * {
+            margin: 0;
+            padding: 5px;
         }
-        .invoice-box table {
+
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        a {
+            color: #5D6975;
+            text-decoration: underline;
+        }
+
+        body {
+
+            color: #001028;
+            background: #FFFFFF;
+            font-family: 'Kanit', sans-serif;
+            font-size: 12px;
+        }
+
+        header {
+            padding: 10px 0;
+            margin-bottom: 30px;
+        }
+
+        #logo {
+            margin-bottom: 10px;
+        }
+
+        #logo img {
+            width: 100px;
+        }
+
+        h1 {
+            border-top: 1px solid #5D6975;
+            border-bottom: 1px solid #5D6975;
+            color: #5D6975;
+            font-size: 2.4em;
+            line-height: 1.4em;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 20px 0;
+            background: url(dimension.png);
+        }
+
+        #project {
+            float: left;
+        }
+
+        #project span {
+            color: #5D6975;
+            text-align: right;
+            width: 52px;
+            margin-right: 10px;
+            display: inline-block;
+            font-size: .9em;
+        }
+
+        #company {
+            float: right;
+            text-align: right;
+        }
+
+        #project div,
+        #company div {
+            white-space: nowrap;
+            font-size: 14px;
+
+        }
+
+        table {
             width: 100%;
-            line-height: inherit;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 20px;
+        }
+
+        table tr:nth-child(2n-1) td {
+            background: #F5F5F5;
+        }
+
+        table th,
+        table td {
+            text-align: center;
+        }
+
+        table th {
+            padding: 5px 20px;
+            color: #5D6975;
+            border-bottom: 2px solid #C1CED9;
+
+        }
+
+        table .service,
+        table .desc {
             text-align: left;
         }
-        .invoice-box table td {
-            padding: 5px;
+
+        table td {
+            padding: 20px;
+            text-align: right;
+        }
+
+        table td.service,
+        table td.desc {
             vertical-align: top;
         }
-        .invoice-box table tr td:nth-child(2) {
-            text-align: right;
+
+        table td.unit,
+        table td.total {
+            font-size: 1.2em;
         }
-        .invoice-box table tr.top table td {
-            padding-bottom: 20px;
+
+        table td.grand {
+            border-top: 1px solid #5D6975;;
         }
-        .invoice-box table tr.top table td.title {
-            font-size: 45px;
-            line-height: 45px;
-            color: #333;
+
+        #notices .notice {
+            color: #5D6975;
+            font-size: 1.2em;
         }
-        .invoice-box table tr.information table td {
-            padding-bottom: 40px;
+
+        footer {
+            color: #5D6975;
+            width: 100%;
+            height: 30px;
+            position: absolute;
+            bottom: 0;
+            border-top: 1px solid #C1CED9;
+            padding: 8px 0;
+            text-align: center;
         }
-        .invoice-box table tr.heading td {
-            background: #eee;
-            border-bottom: 1px solid #ddd;
-            font-weight: bold;
+
+        .h1 {
+            color: white;
+            background: #012169;
         }
-        .invoice-box table tr.details td {
-            padding-bottom: 20px;
-        }
-        .invoice-box table tr.item td {
-            border-bottom: 1px solid #eee;
-        }
-        .invoice-box table tr.item.last td {
-            border-bottom: none;
-        }
-        .invoice-box table tr.total td:nth-child(2) {
-            border-top: 2px solid #eee;
-            font-weight: bold;
-        }
-        @media only screen and (max-width: 600px) {
-            .invoice-box table tr.top table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
-            .invoice-box table tr.information table td {
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
-        }
-        /** RTL **/
-        .invoice-box.rtl {
-            direction: rtl;
-            font-family: Tahoma, "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-        }
-        .invoice-box.rtl table {
-            text-align: right;
-        }
-        .invoice-box.rtl table tr td:nth-child(2) {
-            text-align: left;
+
+        .h3 {
+            color: #012169;
         }
     </style>
 </head>
 <body>
-    <div class="invoice-box">
-        <table cellpadding="0" cellspacing="0">
-            <tr class="top">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td class="title">
-                                Dr Code
-                            </td>
-                            <td>
-                                Invoice #: <br />
-                                Created: January 1, 2015<br />
-                                Due: February 1, 2015
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr class="information">
-                <td colspan="2">
-                    <table>
-                        <tr>
-                            <td>
-                                Sparksuite, Inc.<br />
-                                12345 Sunny Road<br />
-                                Sunnyville, CA 12345
-                            </td>
-                            <td>
-                                Acme Corp.<br />
-                                John Doe<br />
-                                john@example.com
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr class="heading">
-                <td>Payment Method</td>
-                <td>Check #</td>
-            </tr>
-            <tr class="details">
-                <td>Check</td>
-                <td>1000</td>
-            </tr>
-            <tr class="heading">
-                <td>Item</td>
-                <td>Price</td>
-            </tr>
-            <tr class="item">
-                <td>Website design</td>
-                <td>$300.00</td>
-            </tr>
-            <tr class="item">
-                <td>Hosting (3 months)</td>
-                <td>$75.00</td>
-            </tr>
-            <tr class="item last">
-                <td>Domain name (1 year)</td>
-                <td>$10.00</td>
-            </tr>
-            <tr class="total">
-                <td></td>
-                <td>Total: $385.00</td>
-            </tr>
-        </table>
+<header class="clearfix">
+    <div id="logo">
+        <img src="{{ public_path("img/avatar/logo.png") }}" alt=""></div>
+    <h1 class='h1'>Invoice Number : {{$invoices->invoice_num}}</h1>
+    <div id="company" class="clearfix">
+
+        <div id="logo">
+            <img src="https://valucleaning.erp-everest.com/storage/app/public/Valu Clean Logo 01.png" alt="">
+            <h3 class='h3'>Value Billfold</h3>
+        </div>
     </div>
+
+    <div id="project">
+        <div><span>CLIENT : </span> {{$user->name}}</div>
+        </br>
+
+
+{{--        <div><span>ADDRESS : </span> {{$user->address}}</div>--}}
+{{--        </br>--}}
+
+
+        <div><span>EMAIL : </span> <a href="{{$user->email}}">{{$user->email}}</a></div>
+        </br>
+
+
+{{--        <div><span>DATE : </span> {{$date}}</div>--}}
+    </div>
+</header>
+<main>
+    <table>
+        <thead>
+
+        </thead>
+        <tr>
+            <th class="service">Invoice Number</th>
+{{--            <th class="desc">Invoice Due Date</th>--}}
+            <th class="desc">Bank Code</th>
+            <th class="desc">Status</th>
+        </tr>
+        <tbody>
+        <tr>
+            <td class="service"> Number: {{$invoices->invoice_num}}</td>
+            <td class="service"> Bank: {{$invoices->bank_code}}</td>
+            <td class="service"> Time: {{$invoices->status}}</td>
+
+
+        </tr>
+{{--        <tr>--}}
+{{--            <td class="service">Service Name :</td>--}}
+{{--            <td class="desc">{{$service->title}}</td>--}}
+{{--            <td class="unit">{{$service->price}} $</td>--}}
+{{--        </tr>--}}
+{{--        <td class="service">Extra Service Name :</td>--}}
+
+{{--        @foreach($order->sub_services as $subService)--}}
+{{--            <tr>--}}
+{{--                <td class="desc"></td>--}}
+
+
+{{--                <td class="desc">{{$subService->title}}</td>--}}
+{{--                <td class="unit">{{$subService->price}} $</td>--}}
+
+{{--            </tr>--}}
+{{--        @endforeach--}}
+{{--        <td class="service">Other :</td>--}}
+
+{{--        @foreach($order->requirements as $requirement)--}}
+{{--            <tr>--}}
+{{--                <td class="desc"></td>--}}
+
+{{--                <td class="desc">{{$requirement->title}}</td>--}}
+{{--                <td class="unit">{{$requirement->requirement_price}} $</td>--}}
+
+
+{{--                <td class="unit"> Count :{{$count->count ?? 0 }}</td>--}}
+
+
+{{--            </tr>--}}
+{{--        @endforeach--}}
+{{--        <tr>--}}
+{{--            <td colspan="4">SUBTOTAL</td>--}}
+{{--            <td class="total">{{$order->total_price}} $</td>--}}
+{{--        </tr>--}}
+{{--        <tr>--}}
+{{--            <td colspan="4">discount</td>--}}
+{{--            <td class="total">{{$offer->offer_percent ?? 0}}%</td>--}}
+{{--        </tr>--}}
+{{--        <tr>--}}
+{{--            <td colspan="4" class="grand total">GRAND TOTAL</td>--}}
+{{--            <td class="grand total">{{$order->total_price}} $</td>--}}
+{{--        </tr>--}}
+        </tbody>
+        <div>
+        </div>
+    </table>
+</main>
+
+<h3>
+    <footer class='h1'>
+        Dr.Code for Software and Electronic Systems <a href="https://doctor-code.net">Dr.Code</a>
+    </footer>
+</h3>
+
 </body>
 </html>

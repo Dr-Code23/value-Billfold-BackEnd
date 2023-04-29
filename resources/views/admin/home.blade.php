@@ -16,12 +16,12 @@
             data-sa-container-query='{"340":"saw-indicator--size--lg"}'
           >
             <div class="sa-widget-header saw-indicator__header">
-              <h2 class="sa-widget-header__title">Total users</h2>
+              <h2 class="sa-widget-header__title">Total users </h2>
               <div class="sa-widget-header__actions">
               </div>
             </div>
             <div class="saw-indicator__body">
-              <div class="saw-indicator__value">{{$user}}</div>
+              <div class="saw-indicator__value">{{$user}} <i class="bi bi-person"></i></div>
             </div>
           </div>
         </div>
@@ -37,7 +37,7 @@
               </div>
             </div>
             <div class="saw-indicator__body">
-              <div class="saw-indicator__value">{{$invoices}}</div>
+              <div class="saw-indicator__value">{{$invoices}} <i class="bi bi-receipt"></i></div>
             </div>
           </div>
         </div>
@@ -48,11 +48,12 @@
           >
             <div class="sa-widget-header saw-indicator__header">
               <h2 class="sa-widget-header__title">Total Admins</h2>
+
               <div class="sa-widget-header__actions">
               </div>
             </div>
             <div class="saw-indicator__body">
-              <div class="saw-indicator__value">{{$admins}}</div>
+              <div class="saw-indicator__value">{{$admins}} <i class="bi bi-person"></i></div>
 
             </div>
           </div>
@@ -63,11 +64,11 @@
             data-sa-container-query='{"560":"saw-pulse--size--lg"}'
           >
             <div class="sa-widget-header saw-pulse__header">
-              <h2 class="sa-widget-header__title">Active users</h2>
+              <h2 class="sa-widget-header__title">Active users <i class="bi bi-person"></i></h2>
               <div class="sa-widget-header__actions">
             </div>
         </div>
-        <div class="saw-pulse__counter">{{$activateUser}}</div>
+        <div class="saw-pulse__counter">{{$activateUser}} <i class="bi bi-person"></i></div>
           </div>
         </div>
 {{--        <div class="col-12 col-lg-8 col-xxl-9 d-flex">--}}

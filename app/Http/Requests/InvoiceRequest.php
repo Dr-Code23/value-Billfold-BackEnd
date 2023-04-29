@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Response;
 
 class InvoiceRequest extends FormRequest
 {
@@ -28,6 +29,23 @@ class InvoiceRequest extends FormRequest
             'due_date' => 'required|date',
             "amount" => "required",
             "bank_code" => "required|max:14|min:6"
+        ];
+    }
+
+
+    public function messages(): array
+    {
+
+        return [
+            'invoice_num.unique' => 'A number of invoice  is unique',
+            'invoice_num.max' => 'A number of invoice  is max 3',
+            'invoice_num.required' => 'A number of invoice  is required',
+            'bank_code.max' => 'the code of bank max 14',
+            'bank_code.min' => 'the code of bank min 6',
+            'bank_code.required' => 'the code of bank is required',
+            'amount.required' => 'th amount of invoice is required',
+            'due_date.required' => 'th due date of invoice is required',
+            'due_date.date' => 'there error of format due date'
         ];
     }
 }

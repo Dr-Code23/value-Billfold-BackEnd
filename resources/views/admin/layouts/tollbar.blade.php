@@ -462,7 +462,7 @@
           class="dropdown-menu w-100"
           aria-labelledby="dropdownMenuButton"
         >
-            @if(auth('admin')->user()->can('showProfile'))
+            @if(auth('admin')->user()->can('ShowProfile'))
             <li><a class="dropdown-item" href="{{url('Admin/profile')}}">{{__('message.profile')}}</a></li>
             @endif
           <li><hr class="dropdown-divider" /></li>

@@ -27,8 +27,8 @@ Route::group(['controller' =>AuthController::class , 'prefix'=> 'Auth'],function
     Route::post('foregt-password','ForgetPasswordUser');
     Route::post('change-password','ChangePassword')->middleware(['api.auth','user.status']);
     Route::post('edit-profile','editProfile')->middleware(['api.auth','user.status']);
-    Route::post('show-profile','showProfile')->middleware(['api.auth','user.status']);
-    Route::post('home','home')->middleware(['api.auth','user.status']);
+    Route::get('show-profile','showProfile')->middleware(['api.auth','user.status']);
+    Route::get('home','home')->middleware(['api.auth','user.status']);
     Route::post('email-verify','EmailVerification')->middleware(['user.status']);
     Route::post('email-verify-send','EmailVerificationSend')->middleware(['user.status']);
 });
@@ -37,7 +37,7 @@ Route::group(['controller' =>InvoiceController::class , 'prefix'=> 'invoice','mi
     Route::post('create','create');
     Route::get('due','due');
     Route::get('paid','paid');
-    Route::get('pdf','pdf');
+    Route::post('pdf','pdf');
     Route::post('details','details');
 });
 

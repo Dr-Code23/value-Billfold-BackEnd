@@ -18,11 +18,9 @@
                     <div class="col">
                         <nav class="mb-2" aria-label="breadcrumb">
                             <ol class="breadcrumb breadcrumb-sa-simple">
-                                <li class="breadcrumb-item"><a href="#">{{__('message.Dashboard')}}</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">{{__('message.users')}}</li>
+                                <li class="breadcrumb-item"><a href="{{route('Dashboard')}}">{{__('message.Dashboard')}}</a></li>
                             </ol>
                         </nav>
-                        <h1 class="h3 m-0">{{__('message.users')}}</h1>
                     </div>
 
                 </div>
@@ -89,13 +87,13 @@
                                         aria-labelledby="customer-context-menu-0">
                                         {{-- <li><a class="dropdown-item" href="#">{{__('message.edit')}}</a></li> --}}
                                         @if ($user->is_active == 1)
-                                            @if(auth('admin')->user()->can('user-edit'))
+                                            @if(auth('admin')->user()->can('User-Edit'))
                                             <li>
                                             <a class="dropdown-item" href="{{route('Update_status',['user_id' => $user->id,'status_code' =>0 ])}}">{{__('message.Block')}}</a>
                                         </li>
                                             @endif
                                         @else
-                                            @if(auth('admin')->user()->can('user-edit'))
+                                            @if(auth('admin')->user()->can('User-Edit'))
 
                                             <li>
                                             <a class="dropdown-item" href="{{route('Update_status',['user_id' => $user->id,'status_code' =>1 ])}}">{{__('message.Approved')}}</a>
@@ -105,7 +103,7 @@
                                         <li>
                                             <hr class="dropdown-divider" />
                                         </li>
-                                        @if(auth('admin')->user()->can('user-delete'))
+                                        @if(auth('admin')->user()->can('User-Delete'))
                                         <li>
                                             <a class="dropdown-item text-danger" href="{{url('Admin/users/delete',['user_id' => $user->id])}}">{{__('message.delete')}}</a>
                                         </li>

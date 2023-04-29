@@ -20,9 +20,9 @@ class InvoiceController extends Controller
             "bank_code" => $request->bank_code,
             'user_id' => auth('api')->user()->id
         ]);
-        // return Response::json(['status'=>true,'message'=> 'invoice created successfully'],200);
-        $pdf = PDF::loadView('users.invoices.index',compact('invoice'))->setOptions(['defaultFont' => 'sans-serif']);;
-        return $pdf->download('invoice.pdf');
+         return Response::json(['status'=>true,'message'=> 'invoice created successfully'],200);
+//        $pdf = PDF::loadView('users.invoices.index',compact('invoice'))->setOptions(['defaultFont' => 'sans-serif']);;
+//        return $pdf->download('invoice.pdf');
     }
     public function paid(){
         $invoice_paid = Invoice::where("status_value" , '1')->where('user_id',auth('api')->user()->id)->get();
@@ -40,10 +40,11 @@ class InvoiceController extends Controller
             return Response::json(['status'=>false,'message'=> 'sorry ,no invoice yet'],400);
         }
     }
-    public function pdf(){
-        $invoices = Invoice::where('user_id',auth('api')->user()->id)->get();
+    public function pdf(Request $request){
+        $invoices = Invoice::where('user_id',auth('api')->user()->id)->where('id',$request->invoice_id)->first();
+        $user = auth('api')->user();
         if($invoices->count() > 0 && isset($invoices)){
-            $pdf = PDF::loadView('users.invoices.index',compact('invoices'))->setOptions(['defaultFont' => 'sans-serif']);;
+            $pdf = PDF::loadView('users.invoices.index',compact('invoices','user'))->setOptions(['defaultFont' => 'sans-serif','isRemoteEnabled' => true]);
 	        return $pdf->download('invoices.pdf');
         }else{
             return Response::json(['status'=>false,'message'=> 'sorry ,no invoice yet'],404);

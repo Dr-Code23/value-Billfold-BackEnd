@@ -47,12 +47,12 @@
                                     <form method="post" action="{{url('Admin/Role/delete',$Role->id)}}">
                                         @csrf
                                         @method("delete")
-                                        @if(auth('admin')->user()->can('role-delete'))
+                                        @if(auth('admin')->user()->can('Role-Delete'))
                                         <button type="submit" class="btn btn-link border-0" style="background: none" title="delete" onclick='return confirm("{{__('message.Are you sure?')}}")'>
                                         <i class="bi bi-trash" style="color:blue"></i>
                                     </button>
                                         @endif
-                                        @if(auth('admin')->user()->can('role-edit'))
+                                        @if(auth('admin')->user()->can('Role-Edit'))
                                         <a class="" href="{{url('Admin/Role/edit',$Role->id)}}" title="edit">
                                         <i class="bi bi-pen"></i>
                                     </a>

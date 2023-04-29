@@ -26,15 +26,33 @@
 
                         <div class="m-portlet__body">
                             <div class="row">
-                               <div class="form-group text-center">
-                                @foreach ($permissions as $permission)
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" class="chk-box" name="permission[]" value="{{$permission->id}}">{{$permission->name}}
-                                </label>
-                                @endforeach
-                                </div>
+                                <div class="col-lg-4">
+                                    <ul id="treeview1">
+                                        <li><a href="#">Roles</a>
+                                            <ul style="width: 300px">
+                                                </li>
+                                                @foreach ($permissions as $permission)
+                                                    <label style="margin-right: 10px">
+                                                        <input type="checkbox" class="chk-box" name="permission[]" value="{{$permission->id}}">{{$permission->name}}
+                                                    </label>
+                                                    </li>
+                                                @endforeach
+
+                                            </ul>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
+                        </div>
+{{--                               <div class="form-group text-center">--}}
+{{--                                @foreach ($permissions as $permission)--}}
+{{--                                <label class="checkbox-inline">--}}
+{{--                                    <input type="checkbox" class="chk-box" name="permission[]" value="{{$permission->id}}">{{$permission->name}}--}}
+{{--                                </label>--}}
+{{--                                @endforeach--}}
+{{--                                </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                         <div class="m-portlet__foot m-portlet__foot--fit">
                             <div class="m-form__actions m-form__actions">
