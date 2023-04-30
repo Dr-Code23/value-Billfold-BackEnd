@@ -29,7 +29,7 @@ class InvoiceController extends Controller
         if(isset($invoice_paid)&& $invoice_paid->count() > 0){
             return Response::json(['status'=>true,'message'=>$invoice_paid ],200);
         }else{
-            return Response::json(['status'=>false,'message'=> 'sorry ,no invoice yet'],400);
+            return Response::json(['status'=>true,'message'=> []],200);
         }
     }
     public function due(){
@@ -37,7 +37,7 @@ class InvoiceController extends Controller
         if(isset($invoice_due)&& $invoice_due->count() > 0){
             return Response::json(['status'=>true,'message'=>$invoice_due ],200);
         }else{
-            return Response::json(['status'=>false,'message'=> 'sorry ,no invoice yet'],400);
+            return Response::json(['status'=>true,'message'=> [] ],200);
         }
     }
     public function pdf(Request $request){
@@ -56,7 +56,7 @@ class InvoiceController extends Controller
         if($invoice->count() > 0 ){
             return Response::json(['status'=>true,'message'=>$invoice ],200);
         }else{
-            return Response::json(['status'=>false,'message'=> 'sorry ,no invoice yet'],404);
+            return Response::json(['status'=>true,'message'=> []],200);
         }
     }
 
