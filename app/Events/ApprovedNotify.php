@@ -28,7 +28,7 @@ class ApprovedNotify implements ShouldBroadcast
      */
     public function __construct($user)
     {
-        $this->message  = "{$user->name} . is the new user registered now";
+        $this->message  = "{$user->email} . is the new user registered now";
 
         $notification = Notification::create([
             "UserName" => $user->name,

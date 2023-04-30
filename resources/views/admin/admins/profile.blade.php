@@ -22,7 +22,15 @@
                 @if (session('errorimage'))
                 <div class="alert alert-success d-flex justify-content-center" style="margin-left:11%;width:250px" role="alert">{{ session('errorimage') }}</div>
             @endif
-              <img src="{{$myinfo->image}}" alt="avatar"
+              <img
+                  src=
+
+                    @if($myinfo->image == 'default.jpg')
+                        "{{ url("img/avatar/default.jpg") }}"
+                    @else
+                    {{$myinfo->image}}
+                    @endif
+                  alt="avatar"
                 class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3">{{$myinfo->name}}</h5>
               <p class="text-muted mb-1">{{$myinfo->roles_name}}</p>

@@ -25,10 +25,10 @@ class InvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'invoice_num' => 'required|max:3|unique:invoices,invoice_num',
+            'invoice_num' => 'required|max:20|unique:invoices,invoice_num',
             'due_date' => 'required|date',
             "amount" => "required",
-            "bank_code" => "required|max:14|min:6"
+            "bank_code" => "required|max:14|min:6|integer"
         ];
     }
 

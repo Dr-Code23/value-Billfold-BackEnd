@@ -448,8 +448,14 @@
         >
           <span
             class="sa-toolbar-user__avatar sa-symbol sa-symbol--shape--rounded"
-            ><img
-              src={{url($admin->image)}}
+            >
+              <img
+              src=
+                  @if($admin->image == 'default.jpg')
+                    "{{ url("img/avatar/default.jpg") }}"
+              @else
+                  {{url($admin->image)}}
+              @endif
               width="64"
               height="64"
               alt="" /></span>

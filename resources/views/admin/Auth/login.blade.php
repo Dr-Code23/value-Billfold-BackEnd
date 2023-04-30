@@ -64,7 +64,7 @@
                             <span class="form-check-label">Remember me</span></label>
                     </div>
                     <div class="col-auto d-flex align-items-center">
-                        <a href="auth-forgot-password.html">Forgotpassword?</a>
+{{--                        <a href="auth-forgot-password.html">Forgotpassword?</a>--}}
                     </div>
                 </div>
                 <div>
