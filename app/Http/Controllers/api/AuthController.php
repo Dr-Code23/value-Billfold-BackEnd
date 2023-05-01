@@ -73,12 +73,12 @@ class AuthController extends Controller
                 return Response::json(['status'=>false,'message'=> $validator->errors()],400);
             }
             $credentials = request(['email', 'password']);
-            if ($token = auth()->guard('api')->attempt($credentials)) {
+            if ($token = auth()->guard('api')->setTTL(43200)->attempt($credentials)) {
                 $user = auth()->guard('api')->user();
                 $user['token'] = [
                     'access_token' => $token,
                     'token_type' => 'bearer',
-                    'expires_in' => auth('api')->factory()->getTTL() * 60*24*30
+                    'expires_in' => auth('api')->factory()->getTTL() * 60 * 24 * 30
                 ];
                 return Response::json(['status'=>true,'data'=>$user],200);
             }else{
