@@ -28,7 +28,7 @@ class InvoiceRequest extends FormRequest
             'invoice_num' => 'required|max:20|unique:invoices,invoice_num',
             'due_date' => 'required|date',
             "amount" => "required",
-            "bank_code" => "required|max:14|min:6|integer"
+            "bank_code" => "required|max:14|min:6"
         ];
     }
 
