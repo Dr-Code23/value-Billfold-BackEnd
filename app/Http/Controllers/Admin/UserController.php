@@ -51,6 +51,12 @@ class UserController extends Controller
             foreach ($invoices as $invoice){
                 $invoice->delete();
             }
+            $userLook = $user->Looks;
+            if ($userLook->count() > 0){
+                foreach ($userLook as $look){
+                    $look->delete();
+                }
+            }
             $user->delete();
             return redirect(url('Admin/users'))->withsuccess('User is deleted successfully');
         }

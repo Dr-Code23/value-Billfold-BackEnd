@@ -35,6 +35,9 @@ class User extends Authenticatable implements JWTSubject
     public  function invoices(){
         return $this->hasMany(Invoice::class,'user_id');
     }
+    public function Looks(){
+        return $this->hasMany(UserLock::class,'user_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
