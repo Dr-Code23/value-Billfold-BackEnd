@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\InvoiceRequest;
 use App\Models\Invoice;
+use App\Models\User;
 use PDF;
 use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
@@ -40,11 +41,12 @@ class InvoiceController extends Controller
             return Response::json(['status'=>true,'message'=> [] ],200);
         }
     }
-    public function pdf(Request $request){
-        $invoices = Invoice::where('user_id',auth('api')->user()->id)->where('id',$request->invoice_id)->first();
-        $user = auth('api')->user();
+    public function pdf($id){
+        $invoices = Invoice::where('id',$id)->first();
+        $user = User::where('id',$invoices->user_id)->first();
         if($invoices->count() > 0 && isset($invoices)){
-            $pdf = PDF::loadView('users.invoices.index',compact('invoices','user'))->setOptions(['defaultFont' => 'sans-serif','isRemoteEnabled' => true]);
+            $pdf = PDF::loadView('users.invoices.index',compact('invoices','user'))->setOptions(['defaultFont' => 'sans-serif','isHtml5ParserEnabled' => true,
+        'isRemoteEnabled' => true]);
 	        return $pdf->download('invoices.pdf');
         }else{
             return Response::json(['status'=>false,'message'=> 'sorry ,no invoice yet'],404);

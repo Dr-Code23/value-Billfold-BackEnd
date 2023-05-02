@@ -22,28 +22,30 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['controller' =>AuthController::class , 'prefix'=> 'Auth'],function(){
-    Route::post('login','login');
+    Route::post('login','login')->middleware(['user.status']);
     Route::post('register','register');
     Route::post('foregt-password','ForgetPasswordUser');
-    Route::post('change-password','ChangePassword')->middleware(['api.auth','user.status']);
-    Route::post('edit-profile','editProfile')->middleware(['api.auth','user.status']);
-    Route::get('show-profile','showProfile')->middleware(['api.auth','user.status']);
-    Route::get('home','home')->middleware(['api.auth','user.status']);
-    Route::post('email-verify','EmailVerification')->middleware(['user.status']);
-    Route::post('email-verify-send','EmailVerificationSend')->middleware(['user.status']);
+    Route::post('change-password','ChangePassword')->middleware(['api.auth']);
+    Route::post('edit-profile','editProfile')->middleware(['api.auth']);
+    Route::get('show-profile','showProfile')->middleware(['api.auth']);
+    Route::get('home','home')->middleware(['api.auth']);
+    Route::post('email-verify','EmailVerification');
+    Route::post('email-verify-send','EmailVerificationSend');
 });
 
-Route::group(['controller' =>InvoiceController::class , 'prefix'=> 'invoice','middleware' => ['api.auth','user.status'] ],function(){
+Route::group(['controller' =>InvoiceController::class , 'prefix'=> 'invoice','middleware' => ['api.auth'] ],function(){
     Route::post('create','create');
     Route::get('due','due');
-    Route::get('paid','paid');
-    Route::post('pdf','pdf');
     Route::post('details','details');
+    Route::get('paid','paid');
 });
 
-Route::group(['controller' =>OutLookController::class , 'prefix'=> 'OutLook' , 'middleware' => ['api.auth','user.status']],function(){
+Route::group(['controller' =>OutLookController::class , 'prefix'=> 'OutLook' , 'middleware' => ['api.auth']],function(){
     Route::post('create','create');
     Route::Post('checkCode','checkCode');
 
+});
+Route::group(['controller' =>InvoiceController::class , 'prefix'=> 'invoice'],function(){
+        Route::get('pdf/{id}','pdf');
 });
 

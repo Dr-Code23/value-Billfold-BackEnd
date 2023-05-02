@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\EmailVerificationRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
@@ -60,7 +61,7 @@ class AuthController extends Controller
         ]);
         event(new ApprovedNotify($user));
         $user->notify(new EmailVerificationNotification());
-        return Response::json(['status'=>true,'message'=> 'successfully Register , waiting to Accepting'],200);
+        return Response::json(['status'=>true,'message'=> 'Registration has been successful and review is underway through Value Bill Fold'],200);
     }
 
     public function login(Request $request){

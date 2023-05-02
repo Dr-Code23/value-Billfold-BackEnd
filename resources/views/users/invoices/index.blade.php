@@ -158,13 +158,13 @@
 <body>
 <header class="clearfix">
     <div id="logo">
-        <img src="{{ public_path("img/avatar/logo.png") }}" alt=""></div>
+        <img src="{{public_path('img/avatar/logo.png')}}" alt=""></div>
     <h1 class='h1'>Invoice Number : {{$invoices->invoice_num}}</h1>
     <div id="company" class="clearfix">
 
         <div id="logo">
-            <img src="https://valucleaning.erp-everest.com/storage/app/public/Valu Clean Logo 01.png" alt="">
-            <h3 class='h3'>Value Billfold</h3>
+            <img src="{{public_path('img/avatar/logo2.png')}}" alt="">
+            <h3 class='h3'>valU bilfold</h3>
         </div>
     </div>
 
@@ -194,13 +194,14 @@
 {{--            <th class="desc">Invoice Due Date</th>--}}
             <th class="desc">Bank Code</th>
             <th class="desc">Status</th>
+            <th class="desc">Time</th>
         </tr>
         <tbody>
         <tr>
             <td class="service"> Number: {{$invoices->invoice_num}}</td>
             <td class="service"> Bank: {{$invoices->bank_code}}</td>
-            <td class="service"> Time: {{$invoices->status}}</td>
-
+            <td class="service"> Status: {{$invoices->status}}</td>
+            <td class="service"> Time: {{$invoices->due_date}}</td>
 
         </tr>
 {{--        <tr>--}}
